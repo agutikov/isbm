@@ -18,7 +18,8 @@
     "electron-rebuild": "^1.4.0"
   },
   "scripts": {
-    "start": "electron --debug-brk=5858 ./main.js",
+    "start": "electron ./main.js",
+    "debug": "electron --debug-brk=5858 ./main.js",
     "inspect-main": "electron-inspector"
   }
 }
