@@ -18,15 +18,16 @@
         "outDir": null
     },
     {
-      "name": "Debug",
+      "name": "Debug Renderer Process",
       "type": "chrome",
       "request": "launch",
       "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
       "runtimeArgs": [
-          "${workspaceRoot}",
+          "${workspaceRoot}/main.js",
           "--enable-logging",
           "--remote-debugging-port=9222"
       ],
+      "webRoot": "${workspaceRoot}",
       "sourceMaps": false
     }
   ]

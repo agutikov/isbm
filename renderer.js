@@ -3,13 +3,27 @@ console.log('renderer.js started');
 
 var cytoscape = require('cytoscape');
 var Promise = require('bluebird');
-var jQuery = global.jQuery = require('jquery');
-var cyqtip = require('cytoscape-qtip');
-var shell = require('electron').shell;
-var ipcRenderer = require('electron').ipcRenderer;
 
-jQuery.qtip = require('qtip2');
-cyqtip(cytoscape, jQuery); // register extension
+var electron = require('electron')
+var shell = electron.shell;
+var ipcRenderer = electron.ipcRenderer;
+
+var jQuery = global.jQuery = require('jquery');
+// jQuery.qtip = require('qtip2');
+
+// var cyqtip = require('cytoscape-qtip');
+// cyqtip(cytoscape, jQuery); // register extension
+//
+// Can not register `qtip` for `collection` since `qtip` already exists in the prototype and can not be overridden
+// console.trace()
+// -  error @/home/user/isbm/isbm/node_modules/cytoscape/src/util/index.js:23
+// -  overrideErr @/home/user/isbm/isbm/node_modules/cytoscape/src/extension.js:21
+// -  setExtension @/home/user/isbm/isbm/node_modules/cytoscape/src/extension.js:33
+// -  extension @/home/user/isbm/isbm/node_modules/cytoscape/src/extension.js:188
+// -  cytoscape @/home/user/isbm/isbm/node_modules/cytoscape/src/index.js:27
+// -  register @/home/user/isbm/isbm/node_modules/cytoscape-qtip/cytoscape-qtip.js:283
+//-  (anonymous) @/home/user/isbm/isbm/renderer.js:14
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -82,6 +96,29 @@ document.addEventListener('DOMContentLoaded', function() {
       padding: 5
     }
   });
+
+  cy.on('click', 'node', function (evt){
+      console.log( 'clicked ' + this.id() );
+
+      var el = cy.getElementById(this.id())
+
+      if (!el.isChild()) {
+        if ('counter' in el) {
+          el.counter += 1
+        } else {
+          el.counter = 0
+        }
+        cy.add({
+          nodes: [
+            { data: { id: el.id() + '.' + el.counter, parent: 'e'} }
+          ]
+        })
+      }
+  })
+
+  cy.on('click', 'edge', function (evt){
+      console.log( 'clicked ' + this.id() );
+  })
 
 
 });
