@@ -1,0 +1,26 @@
+#full {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+#cy {
+    height: 100%;
+    flex-grow: 1;
+}
+h1 {
+    text-align: center;
+}
+#loading {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    margin-top: -0.5em;
+    font-size: 2em;
+    color: #000;
+}
+.hidden {
+    display: none;
+}
+
